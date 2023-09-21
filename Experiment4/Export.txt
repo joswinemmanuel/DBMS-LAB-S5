@@ -1,0 +1,15 @@
+Step 1 : Right click on table to be exported
+	 to an Excel file.
+
+Step 2 : Click Export.
+
+Step 3 : Select Format xlsx.
+
+Step 4 : Select Save As Separate files.
+
+Step 5 : Give file name in Data Worksheet Name.
+
+Step 6 : Click Next.
+
+Step 7 : Click Finish.
+	 The data will be exported from the table to xlsx file.

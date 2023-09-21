@@ -1,0 +1,48 @@
+CREATE TABLE Employee (
+Emp_id int,
+Emp_name varchar(50),
+Dept varchar(25),
+Salary int,
+PRIMARY KEY(Emp_id)
+);
+
+select * from Employee
+where Salary>7000;
+
+update Employee
+set salary=8200
+where emp_name='david';
+
+insert into Employee(Emp_id,Emp_name,Dept,Salary) values(6,'Daniel Harris','Production',6700);
+select * from Employee;
+
+delete from Employee where Emp_id=3;
+select * from Employee;
+
+select * from Employee where emp_name not like 'D%' and emp_name not like 'O%';
+
+select Dept,SUM(Salary) as Total_expense from Employee group by Dept;
+
+update Employee set salary=salary+(salary*.05) where dept='Production';
+select * from Employee;
+
+delete from Employee where salary<7000;
+select * from Employee;
+
+select emp_name,salary from Employee where salary in (select min(salary) from Employee);
+
+update Employee
+set salary=8200 where dept='Marketing';
+select * from Employee;
+
+select emp_name from Employee where emp_name like 'A%';
+
+select emp_name from Employee where emp_name like '%it%;
+/*or*/
+select emp_name from Employee where INSTR(emp_name,'it')> 0;
+
+select UPPER(dept) from Employee;
+
+select * from Employee where REGEXP_LIKE(dept,'^M.r.*ket');
+
+select DISTINCT REVERSE(UPPER(dept)) AS Reversed_Dept from Employee;

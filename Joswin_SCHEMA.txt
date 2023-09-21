@@ -1,0 +1,84 @@
+desc BOOK
+Name           Null     Type         
+-------------- -------- ------------ 
+BOOK_ID        NOT NULL NUMBER(38)   
+TITLE                   VARCHAR2(50) 
+LANGUAGE_ID             NUMBER(38)   
+MRP                     NUMBER(38)   
+PUBLISHER_ID            NUMBER(38)   
+PUBLISHED_DATE          VARCHAR2(10) 
+VOLUME                  NUMBER(38)   
+STATUS                  VARCHAR2(50) 
+
+
+desc AUTHOR
+Name         Null     Type         
+------------ -------- ------------ 
+AUTHOR_ID    NOT NULL NUMBER(38)   
+NAME                  VARCHAR2(50) 
+EMAIL                 VARCHAR2(50) 
+PHONE_NUMBER          NUMBER(38)   
+STATUS                VARCHAR2(50) 
+
+
+desc BOOK_AUTHOR
+Name      Null Type       
+--------- ---- ---------- 
+BOOK_ID        NUMBER(38) 
+AUTHOR_ID      NUMBER(38) 
+
+
+desc PUBLISHER
+Name         Null     Type         
+------------ -------- ------------ 
+PUBLISHER_ID NOT NULL NUMBER(38)   
+NAME                  VARCHAR2(50) 
+ADDRESS               VARCHAR2(50) 
+
+
+desc MEMBER
+Name         Null     Type         
+------------ -------- ------------ 
+MEMBER_ID    NOT NULL NUMBER(38)   
+NAME                  VARCHAR2(50) 
+BRANCH_CODE           VARCHAR2(50) 
+ROLL_NUMBER           NUMBER(38)   
+PHONE_NUMBER          NUMBER(38)   
+EMAIL_ID              VARCHAR2(50) 
+DATE_OF_JOIN          VARCHAR2(50) 
+STATUS                VARCHAR2(50) 
+
+
+desc BOOK_ISSUE
+Name                    Null     Type         
+----------------------- -------- ------------ 
+ISSUE_ID                NOT NULL NUMBER(38)   
+DATE_OF_ISSUE                    VARCHAR2(50) 
+BOOK_ID                          NUMBER(38)   
+MEMBER_ID                        NUMBER(38)   
+EXPECTED_DATE_OF_RETURN          VARCHAR2(50) 
+STATUS                           VARCHAR2(50) 
+
+
+desc BOOK_RETURN
+Name                  Null     Type         
+--------------------- -------- ------------ 
+ISSUE_ID              NOT NULL NUMBER(38)   
+ACTUAL_DATE_OF_RETURN          VARCHAR2(50) 
+LATEDAYS                       NUMBER(38)   
+LATEFEE                        NUMBER(38)   
+
+
+desc LANGUAGE
+Name        Null     Type         
+----------- -------- ------------ 
+LANGUAGE_ID NOT NULL NUMBER(38)   
+NAME                 VARCHAR2(50) 
+
+
+desc LATE_FEE_RULE
+Name     Null Type       
+-------- ---- ---------- 
+FROMDAYS      NUMBER(38) 
+TODAYS        NUMBER(38) 
+AMOUNT        NUMBER(38) 

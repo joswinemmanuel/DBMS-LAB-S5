@@ -43,6 +43,8 @@ select emp_name from Employee where INSTR(emp_name,'it')> 0;
 
 select UPPER(dept) from Employee;
 
+Select * FROM Employee WHERE(Dept like 'M_R%' and Dept like '%KET%');
+/*or*/
 select * from Employee where REGEXP_LIKE(dept,'^M.r.*ket');
 
 select DISTINCT REVERSE(UPPER(dept)) AS Reversed_Dept from Employee;

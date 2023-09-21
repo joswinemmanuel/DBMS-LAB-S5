@@ -1,0 +1,21 @@
+Step 1 : Create an Excel file.
+	 With the name of columns and also the data to be imported.
+  	 Eg : Employee.xlsx
+
+Step 2 : Create a table EMPLOYEES with the same columns and
+	 required data types.
+	 Eg : EMPLOYEES table
+
+create table EMPLOYEES(
+EMP_NO INT,
+EMP_NAME VARCHAR(50),
+POSITION VARCHAR(50),
+EMP_SALARY INT
+);
+
+Step 3: Mouse-right click on EMPLOYEES and click Import Data.
+	Complete the remaining steps.
+
+Step 4: Click Finish
+	The data from the excel file is imported to EMPLOYEE
+	table in Database.

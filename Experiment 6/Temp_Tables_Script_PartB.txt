@@ -1,0 +1,15 @@
+CREATE TABLE ANGLE (ANGLE decimal(4,2),SIN decimal(4,2),COS decimal(4,2),TAN decimal(4,2),COT decimal(4,2),SEC decimal(4,2),PRIMARY KEY(ANGLE));
+
+INSERT INTO ANGLE(ANGLE) VALUES (0);
+INSERT INTO ANGLE(ANGLE) VALUES (30);
+INSERT INTO ANGLE(ANGLE) VALUES (45);
+INSERT INTO ANGLE(ANGLE) VALUES (60);
+INSERT INTO ANGLE(ANGLE) VALUES (90);
+
+UPDATE angle SET sin=sin(angle*(3.14/180));
+UPDATE angle SET cos=cos(angle*(3.14/180));
+UPDATE angle SET sec=1/(cos(angle*(3.14/180))) where sin!=1;
+UPDATE angle SET tan=tan(angle*(3.14/180)) where sin!=1; 
+UPDATE angle SET cot=1/(tan(angle*(3.14/180))) where sin!=0;
+
+SELECT * FROM ANGLE;

@@ -1,0 +1,54 @@
+create table student(
+Roll_no int,
+Student_name varchar(20),
+Physics float(4),
+Chemistry float(4),
+Mathematics float(4),
+Status varchar(10)
+);
+
+insert into student values(1,'Adam',20,20,33,' ');
+insert into student values(2,'Bob',18,9,41,' ');
+insert into student values(3,'Bright',22,7,31,' ');
+insert into student values(4,'Duke',13,21,20,' ');
+insert into student values(5,'Elvin',14,22,23,' ');
+insert into student values(6,'Fletcher',2,10,48,' ');
+insert into student values(7,'Georgina',22,12,22,' ');
+insert into student values(8,'Mary',24,14,31,' ');
+insert into student values(9,'Tom',19,15,24,' ');
+insert into student values(10,'Zack',8,20,36,' ');
+
+select * from student;
+
+update student
+set status='pass'
+where physics>=12 and chemistry>=12 and mathematics>=25;
+
+update student
+set status='fail'
+where status!='pass';
+
+select avg(physics) from student;
+
+select max(mathematics) as highest_marks_maths from student;
+
+select min(chemistry) as lowest_mark_chemistry from student;
+
+select count(*) from student where physics>=12;
+
+select student_name from student where status='pass';
+
+alter table student
+add total_mark float(4);
+update student
+set total_mark=physics+chemistry+mathematics;
+
+select student_name,status from student order by total_mark desc;
+
+select count(*)/10*100 from student where mathematics>=25;
+
+select count(*)/10*100 from student where status='pass';
+
+select avg(total_mark) from student;
+
+select count(*) from student where status='pass';

@@ -1,0 +1,77 @@
+Create table Customer(
+CustomerID int primary key,
+CustomerName varchar(20),
+Create table Customer(
+CustomerID int primary key,
+CustomerName varchar(20),
+ContactNo int,
+Address varchar(20),
+City varchar(20),
+PostalCode varchar(20),
+Country varchar(20)
+);
+
+insert into Customer values(1001, 'Kevin', 995235971, 'Roovet', 'Pala', 686633, 'Inida');
+insert into Customer values(1002, 'Join', 825235921, 'Raam', 'Kottayam', 686632, 'Inida');
+insert into Customer values(1003, 'Sevin', 915235972, 'Saaber', 'Eattumannor', 686533, 'Inida');
+insert into Customer values(1004, 'Subin', 495235975, 'Zembav', 'Alapuzha', 686636, 'Inida');
+insert into Customer values(1005, 'Runo', 955235911, 'Loove', 'Pala', 686531, 'Inida');
+select * from Customer;
+
+Create table Employees (
+EmployeeID int primary key,
+LastName varchar(20),
+FirstName varchar(20),
+BirthDate date,
+Photo varchar(20)
+);
+
+insert into Employees values(2001, 'Stanes', 'Rock', '05-10-1999', NULL);
+insert into Employees values(2002, 'Stone', 'Kev', '10-10-2002', NULL);
+insert into Employees values(2003, 'Rev', 'Paul', '25-06-1998', NULL);
+insert into Employees values(2004, 'Banks', 'Erin', '15-10-2001', NULL);
+insert into Employees values(2005, 'Buendia', 'Jeremy', '12-10-1999', NULL);
+select * from Employees;
+
+Create table Orders (
+OrderID int primary key,
+CustomerID int,
+EmployeeID int,
+OrderDate date,
+ShipperID varchar(20),
+foreign key(CustomerID) references Customer(CustomerID),
+foreign key(EmployeeID) references Employees(EmployeeID)
+);
+
+insert into Orders values(111, 1001, 2001, '10-10-2022', 5001);
+insert into Orders values(112, 1002, 2002, '23-12-2022', 5002);
+insert into Orders values(113, 1003, 2003, '11-08-2022', 5003);
+insert into Orders values(114, 1004, 2004, '13-12-2022', 5004);
+insert into Orders values(115, 1005, 2005, '25-09-2022', 5005);
+select * from Orders;
+
+select * from customer order by customername asc;
+
+select * from orders order by OrderDate asc;
+
+select * from employees where extract(year from birthdate)>1980 order by birthdate desc;
+
+select * from orders where customerID in (select customerid from customer where country='usa') order by orderdate desc;
+
+
+1. List all customers in ascending order by their names. 
+SELECT * FROM Customer ORDER BY CustomerName ASC;
+2. Retrieve a list of orders with the oldest ones appearing first, sorted by order date in ascending order. 
+SELECT * FROM Orders ORDER BY OrderDate ASC;
+3. Find the employees who were born after 1980 and list them in descending order of their birthdates. 
+SELECT * FROM Employees WHERE BirthDate > '1980-01-01' ORDER BY BirthDate DESC; 
+4. List orders placed by customers from 'USA' in descending order of the order date. 
+SELECT Orders.* FROM Orders INNER JOIN Customer ON Orders.CustomerID = Customer.CustomerID WHERE Customer.Country = 'USA' ORDER BY Orders.OrderDate DESC;
+5. Calculate the total number of orders placed by each customer. 
+SELECT Customer.CustomerName, COUNT(Orders.OrderID) AS TotalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.CustomerName;
+6. List the cities with the total number of customers. 
+SELECT City, COUNT(CustomerID) AS TotalCustomers FROM Customer GROUP BY City;
+7. List customers who have placed more than 2 orders. 
+SELECT Customer.CustomerName, COUNT(Orders.OrderID) AS TotalOrders FROM Customer LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID GROUP BY Customer.CustomerName HAVING COUNT(Orders.OrderID) > 2;
+8. Display cities with more than 3 customers. 
+SELECT City, COUNT(CustomerID) AS TotalCustomers FROM Customer GROUP BY City HAVING COUNT(CustomerID) > 3;

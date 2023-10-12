@@ -1,0 +1,93 @@
+CREATE TABLE Items (
+    itemid number PRIMARY KEY,
+    Itemname VARCHAR(50),
+    category VARCHAR(50),
+    Price number,
+    instock number check(instock>=0)
+);
+
+
+insert into Items values(1,'Item1','High',500,30);
+insert into Items values(2,'Item2','Low',100,20);
+insert into Items values(3,'Item3','Medium',300,60);
+insert into Items values(4,'Item4','High',550,50);
+insert into Items values(5,'Item5','Low',150,40);
+
+select * from Items;
+
+CREATE TABLE Customers (
+    custid number PRIMARY KEY,
+    Custname VARCHAR(50),
+    Address VARCHAR(100),
+    state VARCHAR(50)
+);
+
+insert into Customers values(101,'Ruben','Address1','Uttar Pradesh');
+insert into Customers values(102,'Joswin','Address2','Kerala');
+insert into Customers values(103,'Elvin','Address3','Andra Pradesh');
+insert into Customers values(104,'Sam','Address4','Tamilnadu');
+insert into Customers values(105,'Rooney','Address5','Karnataka');
+
+select * from Customers;
+
+CREATE TABLE Orders (
+    orderid number PRIMARY KEY,
+    Itemid number,
+    Custid number,
+    Quantity number,
+    Orderdate DATE,
+    FOREIGN KEY (Itemid) REFERENCES Items(itemid),
+    FOREIGN KEY (Custid) REFERENCES Customers(custid)
+);
+
+insert into Orders values(1001,1,101,3,'02-04-2023');
+insert into Orders values(1002,2,102,2,'22-03-2023');
+insert into Orders values(1003,3,103,6,'12-03-2023');
+insert into Orders values(1004,4,104,7,'02-12-2022');
+insert into Orders values(1005,5,105,3,'05-03-2023');
+
+select * from Orders;
+
+CREATE TABLE Delivery (
+    deliveryid number PRIMARY KEY,
+    Custid number,
+    Orderid number,
+    FOREIGN KEY (Custid) REFERENCES Customers(custid),
+    FOREIGN KEY (Orderid) REFERENCES Orders(orderid)
+);
+
+insert into Delivery values(5001,101,1001);
+insert into Delivery values(5002,102,1002);
+insert into Delivery values(5003,103,1003);
+insert into Delivery values(5004,104,1004);
+insert into Delivery values(5005,105,1005);
+
+select * from Delivery;
+
+select * FROM Customers
+inner join Orders ON Customers.custid = Orders.Custid;
+
+select * from Customers
+inner join Delivery ON Customers.custid = Delivery.Custid;
+
+select Customers.Custname, Orders.Orderdate from Customers
+inner join Orders ON Customers.custid = Orders.Custid
+where Customers.Custname LIKE 'S%';
+
+SELECT Customers.Custname, Items.Itemname, Items.Price FROM Customers
+INNER JOIN Orders ON Customers.custid = Orders.Custid
+INNER JOIN Items ON Orders.Itemid = Items.itemid
+WHERE Customers.Custname = 'Elvin';
+
+
+select Customers.* from Customers
+inner join Orders ON Customers.custid = Orders.Custid
+inner join Delivery ON Orders.orderid = Delivery.Orderid
+where Orders.Orderdate > '31 Jan 2013';
+
+select items.itemid from items
+INNER JOIN Orders ON items.itemid = orders.itemid
+UNION
+select items.itemid from items
+INNER JOIN Orders ON items.itemid = orders.itemid
+Inner join delivery on orders.orderid = delivery.orderid;

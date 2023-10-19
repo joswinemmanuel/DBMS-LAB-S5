@@ -1,28 +1,38 @@
-<h1>IMPLEMENTATION OF SQL TCL COMMANDS</h1>
+<h1>IMPLEMENTATION OF DCL COMMANDS</h1>
 AIM:
 
-To implement SQL TCL commands.
+To implement DCL commands.
 
 THEORY:
 
-In SQL, TCL stands for Transaction control language.
+TDCL (Data Control Language):
 
-A single unit of work in a database is formed after the consecutive execution of commands is
+DCL includes commands such as GRANT and REVOKE which mainly deal with the rights,
 
-known as a transaction.
+permissions, and other controls of the database system.
 
-There are certain commands present in SQL known as TCL commands that help the user manage
+List of DCL commands:
 
-the transactions that take place in a database.
+GRANT: This command gives users access privileges to the database.
 
-COMMIT. ROLLBACK and SAVEPOINT are the most commonly used TCL commands in SQL.
+REVOKE: This command withdraws the user’s access privileges given by using the GRANT
 
-Questions:
+command.
 
-Create a table bank with bankname,headoffice,branch and branchcode as attributes and perform
+DCL (Data Control Language) Questions:
 
-commit,savepoint and rollback commands.
+1.      What is the role of the GRANT statement in Oracle?
+
+2.      What is the purpose of the REVOKE statement in Oracle?
+
+3.      How can you roll back to a specific savepoint in a transaction?
+
+4.      How can you grant SELECT privileges on a table to a user in Oracle?
+
+5.      Explain how to revoke privileges that were previously granted to a user.
+
+6.      What are system privileges in Oracle?
 
 RESULT:
 
-Implementation of SQL TCL commands is successfully done and Output is verified. CO2 is attained.
+Successfully implemented DCL commands and CO2 is attained.

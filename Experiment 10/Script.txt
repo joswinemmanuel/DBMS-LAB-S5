@@ -1,0 +1,26 @@
+CREATE TABLE bank (
+    bankname VARCHAR(50),
+    headoffice VARCHAR(100),
+    branch VARCHAR(100),
+    branchcode VARCHAR(10)
+);
+
+INSERT INTO bank VALUES('ICICI', 'Mumbai', 'Pala','K78');
+
+COMMIT; /*Commiting the values*/
+
+SAVEPOINT A; /*Saving current state as A*/
+
+INSERT INTO bank VALUES('PNB', 'Patiala', 'Chennai','TN47');
+
+ROLLBACK TO SAVEPOINT A; /*Rolling back to state A*/
+
+INSERT INTO bank VALUES('HDFC', 'Uttar Pradesh', 'Chennai','TN01');
+
+SAVEPOINT FIRST; /*Saving current state as FIRST*/
+
+DELETE FROM bank WHERE bankname = 'HDFC';
+
+ROLLBACK TO SAVEPOINT FIRST; /*Rolling back to state FIRST*/
+
+SELECT * FROM bank;

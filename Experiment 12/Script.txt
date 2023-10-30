@@ -1,0 +1,48 @@
+CREATE TABLE Bank(
+bankcode VARCHAR(3) PRIMARY KEY,
+bankname VARCHAR(50) NOT NULL,
+headoffice VARCHAR(50),
+branches INT CHECK (branches>0)
+);
+
+INSERT INTO Bank VALUES('SBT','State bank of Turkisthan','Thiruvananthapuram',2);
+INSERT INTO Bank values('SBE','State bank of BangKok','Kottayam',1);
+INSERT INTO Bank VALUES('SB1','State bank of India','Ernakulam',2);
+INSERT INTO Bank VALUES('SBA','State bank of America','Ernakulam',1);
+INSERT INTO Bank VALUES('SBM','State bank of Mava','Ernakulam',2);
+
+CREATE TABLE Branch(
+branchid INT PRIMARY KEY,
+branchname varchar(50) DEFAULT 'New Delhi',
+bankid VARCHAR(3),
+FOREIGN KEY (bankid) REFERENCES Bank(bankcode)
+);
+
+INSERT INTO Branch (branchid,bankid) VALUES(101,'SBT');
+INSERT INTO Branch VALUES(102,'Kochi','SBT');
+INSERT INTO Branch (branchid,bankid) VALUES(103,'SB1');
+INSERT INTO Branch VALUES(104,'Kottayam','SB1');
+INSERT INTO Branch (branchid,bankid) VALUES(105,'SBM');
+INSERT INTO Branch VALUES(106,'Kolkatha','SBM');
+INSERT INTO Branch VALUES(107,'Kottayam','SBA');
+INSERT INTO Branch values(108,'Chennai','SBE');
+
+SELECT * FROM branch;
+
+SAVEPOINT S1;
+
+DELETE FROM Branch WHERE bankid='SBT';
+DELETE FROM Bank WHERE bankcode='SBT';
+SELECT * FROM Bank;
+SELECT * FROM Branch;
+
+SAVEPOINT S2;
+
+ALTER TABLE Branch DROP PRIMARY KEY;
+DESC Branch;
+
+CREATE VIEW bank_headoffice AS SELECT * FROM Bank WHERE headoffice='Ernakulam';
+SELECT * FROM bank_headoffice;
+
+CREATE VIEW bank_branch AS SELECT * FROM Branch WHERE branchname='Kottayam';
+SELECT * FROM bank_branch;

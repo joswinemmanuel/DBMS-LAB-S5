@@ -44,5 +44,5 @@ DESC Branch;
 CREATE VIEW bank_headoffice AS SELECT * FROM Bank WHERE headoffice='Ernakulam';
 SELECT * FROM bank_headoffice;
 
-CREATE VIEW bank_branch AS SELECT * FROM Branch WHERE branchname='Kottayam';
+CREATE VIEW bank_branch AS SELECT * FROM Bank JOIN branch ON Bank.bankcode = Branch.bankid WHERE Branch.branchname='Kottayam';
 SELECT * FROM bank_branch;

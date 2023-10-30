@@ -8,8 +8,8 @@ DECLARE
   c INT;
 BEGIN
   dbms_output.put_line('Enter two numbers :');
-  A:=:A;
-  b:=:b;
+  A:= &A;
+  b:= &b;
   c:=A+b;
 dbms_output.put_line('The sum is : '||c);
 END;

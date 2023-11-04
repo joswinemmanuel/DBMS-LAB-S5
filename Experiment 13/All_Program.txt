@@ -1,0 +1,124 @@
+BEGIN
+dbms_output.ENABLE(NULL);
+END;
+
+/* Hello World */
+BEGIN
+dbms_output.put_line('Hello World');
+end;
+
+/* Sum of 2 numbers */
+DECLARE
+  A INT;
+  b INT;
+  c INT;
+BEGIN
+  dbms_output.put_line('Enter two numbers :');
+  A:= &A;
+  b:= &b;
+  c:=A+b;
+dbms_output.put_line('The sum is : '||c);
+END;
+
+/* 1) Factorial */
+DECLARE
+  fac NUMBER :=1;    
+  n NUMBER := &n;    
+BEGIN
+  WHILE n > 0 LOOP  
+    fac:=n*fac;         
+    n:=n-1;            
+  END LOOP;
+  dbms_output.put_line('FACTORIAL IS ' ||fac);   
+END;
+
+/*2) Greatest of 3 numbers */
+DECLARE
+    A NUMBER := &a; 
+    b NUMBER := &b; 
+    c NUMBER := &c; 
+BEGIN
+    IF a > b 
+       AND a > c THEN
+      dbms_output.Put_line('Greatest number is '||a); 
+    ELSIF b > a 
+          AND b > c THEN
+      dbms_output.Put_line('Greatest number is '||b); 
+    ELSE
+      dbms_output.Put_line('Greatest number is '||c); 
+    END IF; 
+END; 
+
+/* 3) Calculator */
+DECLARE
+  num1 NUMBER := 0;
+  num2 NUMBER := 0;
+  OPERATOR CHAR(1);
+  result NUMBER;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Simple Calculator');
+  DBMS_OUTPUT.PUT_LINE('-----------------');
+  num1 := &num1;
+  OPERATOR := '&operator';
+  num2 := &num2;
+CASE OPERATOR
+  WHEN '+' THEN
+    result := num1 + num2;
+  WHEN '-' THEN
+    result := num1 - num2;
+  WHEN '*' THEN
+    result := num1 * num2;
+  WHEN '/' THEN
+IF num2 = 0 THEN
+  DBMS_OUTPUT.PUT_LINE('Error: Division by zero is not allowed.');
+ELSE
+  result := num1 / num2;
+END IF;
+ELSE
+  DBMS_OUTPUT.PUT_LINE('Error: Invalid operator');
+END CASE;
+IF OPERATOR IN ('+', '-', '*', '/') THEN
+  DBMS_OUTPUT.PUT_LINE('Result: ' || num1 || ' ' || operator || ' ' || num2 || ' = ' || result);
+END IF;
+END;
+
+
+/* 4) Fibonacci series */
+DECLARE
+  FIRST NUMBER:=0;
+  SECOND NUMBER:=1;
+  third NUMBER;
+  n NUMBER:=&n;
+  i NUMBER;
+BEGIN
+  dbms_output.put_line('Fibonacci series is:');
+  dbms_output.put_line(FIRST);
+  dbms_output.put_line(SECOND); 
+FOR i IN 3..n
+  loop
+  third:=FIRST+SECOND;
+  FIRST:=SECOND;
+  SECOND:=third;
+  dbms_output.put_line(third);
+END loop;
+END;
+
+/* 5) Division by zero exception */
+DECLARE
+  num1 NUMBER;
+  num2 NUMBER;
+  result NUMBER;
+BEGIN
+  num1:=&num1;
+  num2:=&num2;
+  result := num1 / num2;
+  DBMS_OUTPUT.PUT_LINE('Result: ' || result);
+  EXCEPTION
+  WHEN OTHERS THEN
+  DBMS_OUTPUT.PUT_LINE('Exception: ' || SQLERRM);
+END;
+
+/* 6) No data found exception */
+
+show serveroutput;
+SET serveroutput ON;

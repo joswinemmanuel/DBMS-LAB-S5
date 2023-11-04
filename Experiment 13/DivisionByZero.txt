@@ -1,0 +1,14 @@
+DECLARE
+  num1 NUMBER;
+  num2 NUMBER;
+  result NUMBER;
+
+BEGIN
+  num1:=&num1;
+  num2:=&num2;
+  result := num1 / num2;
+  DBMS_OUTPUT.PUT_LINE('Result: ' || result);
+  EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Exception: ' || SQLERRM);
+END;

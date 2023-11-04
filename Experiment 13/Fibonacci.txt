@@ -1,0 +1,20 @@
+DECLARE
+  FIRST NUMBER:=0;
+  SECOND NUMBER:=1;
+  third NUMBER;
+  n NUMBER:=&n;
+  i NUMBER;
+
+BEGIN
+  dbms_output.put_line('Fibonacci series is:');
+  dbms_output.put_line(FIRST);
+  dbms_output.put_line(SECOND); 
+
+FOR i IN 3..n
+  loop
+  third:=FIRST+SECOND;
+  FIRST:=SECOND;
+  SECOND:=third;
+  dbms_output.put_line(third);
+END loop;
+END;

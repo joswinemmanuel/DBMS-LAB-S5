@@ -1,0 +1,35 @@
+DECLARE
+  num1 NUMBER := 0;
+  num2 NUMBER := 0;
+  OPERATOR CHAR(1);
+  result NUMBER;
+
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Simple Calculator');
+  DBMS_OUTPUT.PUT_LINE('-----------------');
+  num1 := &num1;
+  OPERATOR := '&operator';
+  num2 := &num2;
+
+CASE OPERATOR
+  WHEN '+' THEN
+    result := num1 + num2;
+  WHEN '-' THEN
+    result := num1 - num2;
+  WHEN '*' THEN
+    result := num1 * num2;
+  WHEN '/' THEN
+
+IF num2 = 0 THEN
+  DBMS_OUTPUT.PUT_LINE('Error: Division by zero is not allowed.');
+ELSE
+  result := num1 / num2;
+END IF;
+ELSE
+  DBMS_OUTPUT.PUT_LINE('Error: Invalid operator');
+END CASE;
+
+IF OPERATOR IN ('+', '-', '*', '/') THEN
+  DBMS_OUTPUT.PUT_LINE('Result: ' || num1 || ' ' || operator || ' ' || num2 || ' = ' || result);
+END IF;
+END;

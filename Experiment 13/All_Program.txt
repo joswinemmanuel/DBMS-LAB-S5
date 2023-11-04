@@ -119,6 +119,16 @@ BEGIN
 END;
 
 /* 6) No data found exception */
+DECLARE
+  v_name varchar(100);
+BEGIN
+  SELECT STUDENT_NAME INTO v_name
+  FROM STUDENT
+  WHERE ROLL_NO=10000;
+  EXCEPTION
+  WHEN no_data_found THEN
+  dbms_output.put_line('No student found!');
+END;
 
 show serveroutput;
 SET serveroutput ON;

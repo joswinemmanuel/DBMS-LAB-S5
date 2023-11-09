@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION factorial(n INT)
+RETURN INT AS fac INT;
+BEGIN
+  fac:=1;
+  FOR i IN 1..n LOOP 
+    fac:=i*fac;         
+  END LOOP;
+  RETURN fac;   
+END;
+
+DECLARE 
+  num INT;
+  res INT;
+BEGIN
+  num:=&num;
+  res:=factorial(num);
+  dbms_output.put_line('FACTORIAL IS ' ||res);
+END;

@@ -1,3 +1,9 @@
+CREATE TABLE emp_details(
+  empid INT UNIQUE,
+  empname VARCHAR(50),
+  salary INT
+);
+
 CREATE OR REPLACE TRIGGER tr2
 AFTER INSERT
 ON emp_details

@@ -1,0 +1,29 @@
+CREATE TABLE emp_details(
+  empid INT UNIQUE,
+  empname VARCHAR(50),
+  salary INT
+);
+
+CREATE TABLE deleted(
+  empid INT UNIQUE,
+  empname VARCHAR(50),
+  salary INT
+);
+
+CREATE TABLE updated(
+  empid INT UNIQUE,
+  empname VARCHAR(50),
+  salary INT
+);
+
+CREATE OR REPLACE TRIGGER tr4
+BEFORE INSERT OR DELETE
+ON emp_details
+FOR EACH ROW
+BEGIN
+  IF deleting THEN
+    INSERT INTO deleted VALUES(OLD.empid, OLD.empname, OLD.salary);
+  ELSE
+    INSERT INTO updated VALUES(new.empid, new.empname, new.salary);
+  END IF;
+END;

@@ -1,0 +1,20 @@
+CREATE TABLE customer_details(
+  cust_id INT UNIQUE,
+  cust_name VARCHAR(50),
+  address VARCHAR(50)
+);
+
+CREATE OR REPLACE TRIGGER tr1
+AFTER INSERT
+ON customer_details
+FOR EACH ROW
+BEGIN
+  dbms_output.put_line('My new ROW is inserted');
+END;
+
+INSERT INTO customer_details VALUES(1, 'Kevin', 'Pala');
+/*
+OUTPUT
+1 rows inserted.
+My new ROW is inserted
+*/

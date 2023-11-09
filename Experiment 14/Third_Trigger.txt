@@ -1,3 +1,13 @@
+CREATE TABLE customer_details(
+  cust_id INT UNIQUE,
+  cust_name VARCHAR(50),
+  address VARCHAR(50)
+);
+
+CREATE TABLE cust_count(
+  count_row INT
+);
+
 CREATE OR REPLACE TRIGGER tr3
 BEFORE INSERT OR DELETE
 ON customer_details 

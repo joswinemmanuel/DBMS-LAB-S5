@@ -3,7 +3,7 @@ CREATE TABLE student_details(
   marks INT,
   phone INT
 );
-
+ 
 INSERT INTO student_details VALUES(1, 20, 9526547719);
 INSERT INTO student_details VALUES(2, 30, 4526547719);
 INSERT INTO student_details VALUES(3, 10, 6526547719);

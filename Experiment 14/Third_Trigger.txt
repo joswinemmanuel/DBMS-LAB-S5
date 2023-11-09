@@ -1,0 +1,19 @@
+CREATE OR REPLACE TRIGGER tr3
+BEFORE INSERT OR DELETE
+ON customer_details 
+FOR EACH ROW
+BEGIN
+  IF deleting THEN
+    UPDATE cust_count
+    SET count_row=count_row-1;
+  ELSE
+    UPDATE cust_count
+    SET count_row=count_row+1;
+  END IF;
+END;
+
+SELECT * FROM cust_count;
+/* OUTPUT : 0 */
+INSERT INTO customer_details VALUES(1, 'RON', 'Pala');
+SELECT * FROM cust_count;
+/* OUTPUT : 1 */

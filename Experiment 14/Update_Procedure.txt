@@ -1,0 +1,27 @@
+CREATE TABLE student_details(
+  roll INT,
+  marks INT,
+  phone INT
+);
+
+INSERT INTO student_details VALUES(1, 20, 9526547719);
+INSERT INTO student_details VALUES(2, 30, 4526547719);
+INSERT INTO student_details VALUES(3, 10, 6526547719);
+INSERT INTO student_details VALUES(4, 12, 8226547719);
+INSERT INTO student_details VALUES(5, 16, 9226547719);
+INSERT INTO student_details VALUES(6, 25, 6026547719);
+
+SELECT * FROM student_details;
+
+CREATE OR REPLACE PROCEDURE pr1
+AS
+BEGIN
+  UPDATE student_details
+  SET marks=marks+marks*(5/100);
+END;
+
+BEGIN
+  pr1;
+END;
+
+SELECT * FROM student_details;

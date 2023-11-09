@@ -1,0 +1,15 @@
+CREATE OR REPLACE TRIGGER tr2
+AFTER INSERT
+ON emp_details
+FOR EACH ROW
+WHEN (new.salary>20000)
+BEGIN
+  dbms_output.put_line('Salary value > 20000');
+END;
+
+INSERT INTO emp_details VALUES(101, 'Bieber', 20001);
+/*
+OUTPUT
+1 rows inserted.
+Salary value > 20000
+*/

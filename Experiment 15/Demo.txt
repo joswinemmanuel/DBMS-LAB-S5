@@ -1,0 +1,25 @@
+CREATE OR REPLACE PACKAGE package1
+AS
+PROCEDURE pr1(A INT,b INT);
+END package1;
+
+CREATE OR REPLACE PACKAGE BODY package1
+AS
+PROCEDURE pr1(A INT,b INT)
+IS
+BEGIN
+  dbms_output.put_line('SUM = '||(A+b));
+END pr1;
+END package1;
+
+DECLARE
+  num1 INT;
+  num2 INT;
+BEGIN
+  num1:=&num1;
+  num2:=&num2;
+  package1.pr1(num1, num2);
+END;
+
+show serveroutput;
+SET serveroutput ON;

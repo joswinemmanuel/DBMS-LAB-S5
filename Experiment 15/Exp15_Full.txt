@@ -1,0 +1,132 @@
+CREATE OR REPLACE PACKAGE package1
+AS
+PROCEDURE pr1(A INT,b INT);
+END package1;
+
+CREATE OR REPLACE PACKAGE BODY package1
+AS
+PROCEDURE pr1(A INT,b INT)
+IS
+BEGIN
+  dbms_output.put_line('SUM = '||(A+b));
+END pr1;
+END package1;
+
+DECLARE
+  num1 INT;
+  num2 INT;
+BEGIN
+  num1:=&num1;
+  num2:=&num2;
+  package1.pr1(num1, num2);
+END;
+
+show serveroutput;
+SET serveroutput ON;
+
+
+
+CREATE OR REPLACE PACKAGE pk1 AS
+PROCEDURE proc1(n1 INT,n2 INT);
+PROCEDURE proc2(n3 INT);
+FUNCTION fn11(n4 INT) RETURN INT;
+FUNCTION fn22(n5 INT,n6 INT,n7 INT) RETURN INT;
+FUNCTION fn33(n8 INT,n9 INT,n10 INT) RETURN INT;
+END pk1;
+
+
+CREATE OR REPLACE PACKAGE BODY pk1 AS
+
+PROCEDURE proc1(n1 INT ,n2 INT)
+IS
+BEGIN
+  dbms_output.put_line('SUM OF '||n1||' AND '||n2||' = '||(n1+n2));
+  dbms_output.put_line('AVERAGE OF '||n1||' AND '||n2||' = '||((n1+n2)/2));
+  dbms_output.put_line('PRODUCT OF '||n1||' AND '||n2||' = '||(n1*n2));
+END proc1;
+
+PROCEDURE proc2(n3 INT)
+IS
+BEGIN
+  dbms_output.put_line('SQUARE ROOT OF '||n3||' = '||(sqrt(n3)));
+END proc2;
+
+FUNCTION fn11 (n4 INT)
+RETURN INT
+IS
+r INT;
+BEGIN
+  r:=MOD(n4,2);
+  RETURN r;
+END;
+
+FUNCTION fn22 (n5 INT,n6 INT,n7 INT)
+RETURN INT
+IS
+s INT;
+BEGIN
+  s:=n5+n6+n7;
+  RETURN s;
+END;
+
+FUNCTION fn33 (n8 INT,n9 INT,n10 INT)
+RETURN INT
+IS
+BEGIN
+    IF n8 > n9 
+      AND n8 > n10 THEN
+        RETURN n8;
+    ELSIF n9 > n8 
+      AND n9 > n10 THEN
+        RETURN n9;
+    ELSE
+      RETURN n10;
+    END IF; 
+END; 
+
+END pk1;
+
+DECLARE
+  A INT;
+  b INT;
+  c INT;
+  d INT;
+  e INT;
+  f INT;
+  g INT;
+  x1 INT;
+  x2 INT;
+  x3 INT;
+BEGIN
+  A:=&A;
+  b:=&b;
+  pk1.proc1(A,b);
+  c:=&c;
+  pk1.proc2(c);
+  d:=&d;
+  x1:=pk1.fn11(d);
+  IF x1=0 THEN
+    dbms_output.put_line('NUMBER '||d||' IS EVEN');
+  ELSE
+    dbms_output.put_line('NUMBER '||d||' IS ODD');
+  END IF;
+  e:=&e;
+  f:=&f;
+  g:=&g;
+  x2:=pk1.fn22(e,f,g);
+  x3:=pk1.fn33(e,f,g);
+  dbms_output.put_line('SUM OF NUMBERS : '||e||', '||f||', '||g||'  =  '||x2);
+  dbms_output.put_line('GREATEST OF  '||e||', '||f||', '||g||'  IS  '||x3);
+END;
+
+/*
+OUTPUT
+
+SUM OF 1 AND 2 = 3
+AVERAGE OF 1 AND 2 = 1.5
+PRODUCT OF 1 AND 2 = 2
+SQUARE ROOT OF 3 = 1.73205080756887729352744634150587236694
+NUMBER 4 IS EVEN
+SUM OF NUMBERS : 5, 6, 7  =  18
+GREATEST OF  5, 6, 7  IS  7
+*/

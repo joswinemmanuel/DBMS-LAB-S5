@@ -32,6 +32,7 @@ PROCEDURE proc2(n3 INT);
 FUNCTION fn11(n4 INT) RETURN INT;
 FUNCTION fn22(n5 INT,n6 INT,n7 INT) RETURN INT;
 FUNCTION fn33(n8 INT,n9 INT,n10 INT) RETURN INT;
+FUNCTION fn44(n11 INT) RETURN INT;
 END pk1;
 
 
@@ -84,6 +85,18 @@ BEGIN
     END IF; 
 END; 
 
+FUNCTION fn44 (n11 INT)
+RETURN INT
+IS
+res INT;
+BEGIN
+  res:=0;
+  FOR i IN 1..n11 LOOP 
+    res:=res+i;         
+  END LOOP;
+  RETURN res;   
+END;
+
 END pk1;
 
 DECLARE
@@ -97,6 +110,7 @@ DECLARE
   x1 INT;
   x2 INT;
   x3 INT;
+  x4 INT;
 BEGIN
   A:=&A;
   b:=&b;
@@ -115,8 +129,10 @@ BEGIN
   g:=&g;
   x2:=pk1.fn22(e,f,g);
   x3:=pk1.fn33(e,f,g);
+  x4:=pk1.fn44(g);
   dbms_output.put_line('SUM OF NUMBERS : '||e||', '||f||', '||g||'  =  '||x2);
   dbms_output.put_line('GREATEST OF  '||e||', '||f||', '||g||'  IS  '||x3);
+  dbms_output.put_line('SUM OF FIRST '||g||' NATURAL NUMBERS IS : '||x4);
 END;
 
 /*
@@ -129,4 +145,5 @@ SQUARE ROOT OF 3 = 1.73205080756887729352744634150587236694
 NUMBER 4 IS EVEN
 SUM OF NUMBERS : 5, 6, 7  =  18
 GREATEST OF  5, 6, 7  IS  7
+SUM OF FIRST 5 NATURAL NUMBERS IS : 15
 */

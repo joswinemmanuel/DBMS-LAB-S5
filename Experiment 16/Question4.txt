@@ -1,0 +1,43 @@
+/* QUESTION 4 */
+
+CREATE TABLE employee_list(
+  id INT,
+  name VARCHAR(25),
+  monthly_salary NUMBER
+);
+
+INSERT INTO employee_list VALUES (101, 'Joswin', 100000);
+INSERT INTO employee_list VALUES (102, 'John', 30000);
+INSERT INTO employee_list VALUES (103, 'Boby', 11000);
+INSERT INTO employee_list VALUES (104, 'Edwin', 2000);
+INSERT INTO employee_list VALUES (105, 'Charlie', 17000);
+
+DECLARE
+  CURSOR c_employee_details IS
+  SELECT ID, NAME, monthly_salary FROM employee_list;
+  v_id employee_list.ID%TYPE;
+  v_name employee_list.name%TYPE;
+  v_monthly_salary employee_list.monthly_salary%TYPE;
+  v_annual NUMBER;
+BEGIN
+  OPEN c_employee_details;   
+  LOOP
+  FETCH c_employee_details INTO v_id, v_name, v_monthly_salary;
+  EXIT WHEN c_employee_details%NOTFOUND;       
+  v_annual := v_monthly_salary * 12;
+  IF v_annual > 500000  THEN
+    v_monthly_salary := v_monthly_salary + ((10/100)*v_monthly_salary);
+  ELSIF v_annual >= 200000 THEN
+    v_monthly_salary := v_monthly_salary + ((15/100)*v_monthly_salary);
+  ELSIF v_annual >= 60000 THEN
+    v_monthly_salary := v_monthly_salary + ((20/100)*v_monthly_salary);
+  ELSE
+    v_monthly_salary := v_monthly_salary + ((25/100)*v_monthly_salary);
+  END IF;    
+  UPDATE employee_list SET monthly_salary = v_monthly_salary WHERE id = v_id;
+  END LOOP;   
+  CLOSE c_employee_details;   
+  COMMIT;
+END;
+
+SELECT * FROM employee_list;

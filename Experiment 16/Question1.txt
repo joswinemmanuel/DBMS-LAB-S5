@@ -1,0 +1,37 @@
+/* QUESTION 1 */
+
+CREATE TABLE bank_details(
+  accno INT,
+  name VARCHAR(25),
+  balance INT,
+  adate DATE
+);
+
+CREATE TABLE new_bank(
+  accno INT,
+  interest INT
+);
+
+INSERT INTO bank_details VALUES(1,'Joswin',91055600,'03-07-2015');
+INSERT INTO bank_details VALUES(2,'David',54600,'02-09-2014');
+INSERT INTO bank_details VALUES(3,'Xavi',13600,'02-12-2019');
+INSERT INTO bank_details VALUES(4,'Mark',9600,'19-01-2019');
+
+DECLARE   
+  CURSOR c_bank_details IS
+  SELECT accno, balance FROM bank_details;
+  v_accno bank_details.accno%TYPE;
+  v_balance bank_details.balance%TYPE;
+  v_interest INT; 
+BEGIN
+  OPEN c_bank_details;
+  LOOP
+  FETCH c_bank_details INTO v_accno, v_balance;
+  EXIT WHEN c_bank_details%NOTFOUND;
+  v_interest := 0.08 * v_balance;
+  INSERT INTO new_bank VALUES(v_accno, v_interest);
+  END LOOP;
+  CLOSE c_bank_details;
+END;
+
+SELECT * FROM new_bank;

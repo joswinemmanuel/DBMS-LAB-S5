@@ -1,0 +1,131 @@
+/* QUESTION 1 */
+
+CREATE TABLE bank_details(
+  accno INT,
+  name VARCHAR(25),
+  balance INT,
+  adate DATE
+);
+
+CREATE TABLE new_bank(
+  accno INT,
+  interest INT
+);
+
+INSERT INTO bank_details VALUES(1,'Joswin',91055600,'03-07-2015');
+INSERT INTO bank_details VALUES(2,'David',54600,'02-09-2014');
+INSERT INTO bank_details VALUES(3,'Xavi',13600,'02-12-2019');
+INSERT INTO bank_details VALUES(4,'Mark',9600,'19-01-2019');
+
+DECLARE   
+  CURSOR c_bank_details IS
+  SELECT accno, balance FROM bank_details;
+  v_accno bank_details.accno%TYPE;
+  v_balance bank_details.balance%TYPE;
+  v_interest INT; 
+BEGIN
+  OPEN c_bank_details;
+  LOOP
+  FETCH c_bank_details INTO v_accno, v_balance;
+  EXIT WHEN c_bank_details%NOTFOUND;
+  v_interest := 0.08 * v_balance;
+  INSERT INTO new_bank VALUES(v_accno, v_interest);
+  END LOOP;
+  CLOSE c_bank_details;
+END;
+
+SELECT * FROM new_bank;
+
+
+/* QUESTION 2 */
+
+CREATE TABLE new_student(
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  m1 INT,
+  m2 INT,
+  m3 INT,
+  grade VARCHAR(10)
+);
+
+INSERT INTO new_student VALUES (1, 'Joswin', 99, 98, 100, NULL);
+INSERT INTO new_student VALUES (2, 'John', 78, 88, 95, NULL);
+INSERT INTO new_student VALUES (3, 'Boby', 85, 92, 89, NULL);
+INSERT INTO new_student VALUES (4, 'Edwin', 92, 78, 87, NULL);
+INSERT INTO new_student VALUES (5, 'Charlie', 88, 90, 94, NULL);
+
+DELETE FROM new_student;
+
+DECLARE
+  CURSOR c_student_details IS
+  SELECT id, m1, m2, m3 FROM new_student;
+  v_id new_student.id%TYPE;
+  v_m1 new_student.m1%TYPE;
+  v_m2 new_student.m2%TYPE;
+  v_m3 new_student.m3%TYPE;
+  v_total_marks INT;
+  v_grade VARCHAR(10);   
+BEGIN
+  OPEN c_student_details;   
+  LOOP
+  FETCH c_student_details INTO v_id, v_m1, v_m2, v_m3;
+  EXIT WHEN c_student_details%NOTFOUND;       
+  v_total_marks := v_m1 + v_m2 + v_m3;
+  IF v_total_marks/3 >= 90 THEN
+  v_grade := 'S';
+  ELSIF v_total_marks >= 85 THEN
+  v_grade := 'A';
+  ELSIF v_total_marks >= 80 THEN
+  v_grade := 'B';
+  ELSE
+  v_grade := 'C';
+  END IF;       
+  UPDATE new_student SET grade = v_grade WHERE id = v_id;
+  END LOOP;   
+  CLOSE c_student_details;   
+  COMMIT;
+END;
+
+SELECT * FROM new_student;
+
+
+/* QUESTION 3 */
+
+CREATE TABLE people_list (
+    id NUMBER PRIMARY KEY,
+    name VARCHAR(50),
+    dt_joining DATE,
+    place VARCHAR(50)
+);
+
+CREATE TABLE exp_list (
+    id NUMBER PRIMARY KEY,
+    name VARCHAR(50),
+    experience NUMBER
+);
+
+INSERT INTO people_list VALUES (101, 'Joswin', TO_DATE('2010-01-01', 'YYYY-MM-DD'), 'Kochi');
+INSERT INTO people_list VALUES (102, 'Jane', TO_DATE('2015-03-15', 'YYYY-MM-DD'), 'Kollam');
+INSERT INTO people_list VALUES (103, 'Paul', TO_DATE('2009-03-15', 'YYYY-MM-DD'), 'Chennai');
+
+DECLARE
+    CURSOR v_cursor IS
+    SELECT ID, NAME, dt_joining FROM people_list;
+    v_id people_list.id%TYPE;
+    v_name people_list.name%TYPE;
+    v_dt_joining people_list.dt_joining%TYPE;
+    v_experience NUMBER;
+BEGIN
+    OPEN v_cursor; 
+    LOOP
+    FETCH v_cursor INTO v_id, v_name, v_dt_joining;
+    EXIT WHEN v_cursor%NOTFOUND;
+    v_experience := ROUND(MONTHS_BETWEEN(SYSDATE, v_dt_joining) / 12, 2);
+    IF v_experience > 10 THEN
+      INSERT INTO exp_list (id, name, experience) VALUES (v_id, v_name, v_experience);
+    END IF;
+    END LOOP;
+    CLOSE v_cursor;
+END;
+
+SELECT * FROM exp_list;

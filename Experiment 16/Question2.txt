@@ -1,0 +1,48 @@
+/* QUESTION 2 */
+
+CREATE TABLE new_student(
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  m1 INT,
+  m2 INT,
+  m3 INT,
+  grade VARCHAR(10)
+);
+
+INSERT INTO new_student VALUES (1, 'Joswin', 99, 98, 100, NULL);
+INSERT INTO new_student VALUES (2, 'John', 78, 88, 95, NULL);
+INSERT INTO new_student VALUES (3, 'Boby', 85, 92, 89, NULL);
+INSERT INTO new_student VALUES (4, 'Edwin', 92, 78, 87, NULL);
+INSERT INTO new_student VALUES (5, 'Charlie', 88, 90, 94, NULL);
+
+DECLARE
+  CURSOR c_student_details IS
+  SELECT id, m1, m2, m3 FROM new_student;
+  v_id new_student.id%TYPE;
+  v_m1 new_student.m1%TYPE;
+  v_m2 new_student.m2%TYPE;
+  v_m3 new_student.m3%TYPE;
+  v_total_marks INT;
+  v_grade VARCHAR(10);   
+BEGIN
+  OPEN c_student_details;   
+  LOOP
+  FETCH c_student_details INTO v_id, v_m1, v_m2, v_m3;
+  EXIT WHEN c_student_details%NOTFOUND;       
+  v_total_marks := v_m1 + v_m2 + v_m3;
+  IF v_total_marks/3 >= 90 THEN
+  v_grade := 'S';
+  ELSIF v_total_marks >= 85 THEN
+  v_grade := 'A';
+  ELSIF v_total_marks >= 80 THEN
+  v_grade := 'B';
+  ELSE
+  v_grade := 'C';
+  END IF;       
+  UPDATE new_student SET grade = v_grade WHERE id = v_id;
+  END LOOP;   
+  CLOSE c_student_details;   
+  COMMIT;
+END;
+
+SELECT * FROM new_student;

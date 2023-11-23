@@ -1,0 +1,40 @@
+/* QUESTION 3 */
+
+CREATE TABLE people_list (
+    id NUMBER PRIMARY KEY,
+    name VARCHAR(50),
+    dt_joining DATE,
+    place VARCHAR(50)
+);
+
+CREATE TABLE exp_list (
+    id NUMBER PRIMARY KEY,
+    name VARCHAR(50),
+    experience NUMBER
+);
+
+INSERT INTO people_list VALUES (101, 'Joswin', TO_DATE('2010-01-01', 'YYYY-MM-DD'), 'Kochi');
+INSERT INTO people_list VALUES (102, 'Jane', TO_DATE('2015-03-15', 'YYYY-MM-DD'), 'Kollam');
+INSERT INTO people_list VALUES (103, 'Paul', TO_DATE('2009-03-15', 'YYYY-MM-DD'), 'Chennai');
+
+DECLARE
+    CURSOR v_cursor IS
+    SELECT ID, NAME, dt_joining FROM people_list;
+    v_id people_list.id%TYPE;
+    v_name people_list.name%TYPE;
+    v_dt_joining people_list.dt_joining%TYPE;
+    v_experience NUMBER;
+BEGIN
+    OPEN v_cursor; 
+    LOOP
+    FETCH v_cursor INTO v_id, v_name, v_dt_joining;
+    EXIT WHEN v_cursor%NOTFOUND;
+    v_experience := ROUND(MONTHS_BETWEEN(SYSDATE, v_dt_joining) / 12, 2);
+    IF v_experience > 10 THEN
+      INSERT INTO exp_list (id, name, experience) VALUES (v_id, v_name, v_experience);
+    END IF;
+    END LOOP;
+    CLOSE v_cursor;
+END;
+
+SELECT * FROM exp_list;

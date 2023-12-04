@@ -1,0 +1,3 @@
+Grant select, insert, update, delete On <table name> To <user name>;
+
+Revoke select, insert, update, delete On <table name> from <user name>;

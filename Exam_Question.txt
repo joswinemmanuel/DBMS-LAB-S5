@@ -1,0 +1,23 @@
+CREATE OR REPLACE PROCEDURE pr1(A INT, B INT)
+AS
+BEGIN
+    IF A > 0 AND B > 0 THEN
+        DBMS_OUTPUT.PUT_LINE(A+B);
+        DBMS_OUTPUT.PUT_LINE(A-B);
+        DBMS_OUTPUT.PUT_LINE(A*B);
+        DBMS_OUTPUT.PUT_LINE(A/B);
+        DBMS_OUTPUT.PUT_LINE(MOD(A,B));
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('ENTER POSITIVE NUMBER');
+    END IF;
+END;
+
+
+DECLARE
+    A INT;
+    B INT;
+BEGIN
+    A := &A;
+    B := &B;
+    pr1(A, B);
+END;

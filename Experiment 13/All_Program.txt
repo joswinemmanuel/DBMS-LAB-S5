@@ -25,11 +25,10 @@ DECLARE
   fac NUMBER :=1;    
   n NUMBER := &n;    
 BEGIN
-  WHILE n > 0 LOOP  
-    fac:=n*fac;         
-    n:=n-1;            
+  FOR i IN 1..n LOOP 
+    fac:=i*fac;         
   END LOOP;
-  dbms_output.put_line('FACTORIAL IS ' ||fac);   
+  dbms_output.put_line('FACTORIAL IS ' ||fac); 
 END;
 
 /*2) Greatest of 3 numbers */

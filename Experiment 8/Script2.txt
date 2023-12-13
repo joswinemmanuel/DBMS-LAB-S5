@@ -62,5 +62,8 @@ select CustomerID,count(CustomerID) as total_orders from orders group by Custome
 select City,count(CustomerID) as total_customers from customer group by City;
 
 SELECT CustomerName,CustomerID FROM customer where CustomerID in (select CustomerID from Orders GROUP BY CustomerID HAVING (COUNT(CustomerID) > 2));
+or
+SELECT count(*), customer.CustomerName from orders join customer on customer.CustomerID=orders.CustomerID
+group by customer.CustomerName having count(*)>2;
 
 SELECT City, COUNT(CustomerID) AS TotalCustomers FROM Customer GROUP BY City HAVING COUNT(CustomerID) > 3;

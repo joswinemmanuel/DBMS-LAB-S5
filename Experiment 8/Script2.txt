@@ -52,6 +52,10 @@ select * from orders order by OrderDate;
 select * from employees where extract(year from birthdate)>1980 order by birthdate desc;
 
 select * from orders where CustomerID in(select CustomerID from customer where Country='USA') order by OrderDate desc;
+or
+SELECT CUSTOMER.* FROM customer JOIN Orders ON CUSTOMER.CustomerID=Orders.CustomerID
+WHERE COUNTRY='USA';
+
 
 select CustomerID,count(CustomerID) as total_orders from orders group by CustomerID;
 

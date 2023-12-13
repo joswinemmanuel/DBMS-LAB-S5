@@ -129,5 +129,33 @@ BEGIN
   dbms_output.put_line('No student found!');
 END;
 
+/* 7) Second greatest */
+
+DECLARE
+    A NUMBER := &a; 
+    b NUMBER := &b; 
+    c NUMBER := &c; 
+BEGIN
+    IF a > b AND a > c THEN
+        IF b > c THEN
+            dbms_output.Put_line('Second Greatest number is '||b);
+        ELSE
+            dbms_output.Put_line('Second Greatest number is '||c);
+        END IF;
+    ELSIF b > a AND b > c THEN
+        IF a > c THEN
+            dbms_output.Put_line('Second Greatest number is '||a);
+        ELSE
+            dbms_output.Put_line('Second Greatest number is '||c);
+        END IF;
+    ELSE
+        IF a > b THEN
+            dbms_output.Put_line('Second Greatest number is '||a);
+        ELSE
+            dbms_output.Put_line('Second Greatest number is '||b);
+        END IF; 
+    END IF; 
+END; 
+
 show serveroutput;
 SET serveroutput ON;
